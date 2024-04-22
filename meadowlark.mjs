@@ -1,6 +1,8 @@
 import express from 'express'
 import { engine } from 'express-handlebars'
 
+import { fortune } from './lib/fortune.mjs'
+
 const app = express()
 
 // Configure Handlebars view engine
@@ -18,17 +20,7 @@ app.use(express.static(import.meta.dirname + '/public'))
 app.get('/', (req, res) => res.render('home'))
 
 app.get('/about', (req, res) => {
-    const fortunes = [
-        `Conquer your fears or they will conquer you.`,
-        `Rivers need springs.`,
-        `Do not fear what you don\'t know.`,
-        `You will have a pleasant surprise.`,
-        `Whenever possible, keep it simple.`,
-    ]
-
-    const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)]
-    res.render('about', {fortune: randomFortune})
-
+    res.render('about', { fortune: fortune() })
 })
 
 // Custom 404 page
