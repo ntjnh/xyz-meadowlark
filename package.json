@@ -2,7 +2,7 @@
   "name": "meadowlark",
   "version": "1.0.0",
   "description": "MEN stack website for a fictional company.",
-  "main": "meadowlark.js",
+  "main": "meadowlark.mjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
