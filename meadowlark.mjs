@@ -1,7 +1,7 @@
 import express from 'express'
 import { engine } from 'express-handlebars'
 
-import { fortune } from './lib/fortune.mjs'
+import * as handlers from './lib/handlers.mjs'
 
 const app = express()
 
@@ -17,24 +17,15 @@ const port = process.env.PORT || 3000
 app.use(express.static(import.meta.dirname + '/public'))
 
 // Set up routing
-app.get('/', (req, res) => res.render('home'))
+app.get('/', handlers.home)
 
-app.get('/about', (req, res) => {
-    res.render('about', { fortune: fortune() })
-})
+app.get('/about', handlers.about)
 
 // Custom 404 page
-app.use((req, res) => {
-    res.status(404)
-    res.render('404')
-})
+app.use(handlers.notFound)
 
 // Custom 500 page
-app.use((err, req, res, next) => {
-    console.error(err.message)
-    res.status(500)
-    res.render('500')
-})
+app.use(handlers.serverError)
 
 app.listen(port, () => {
     console.log(`Express started on http://localhost:${port}; ` + 
