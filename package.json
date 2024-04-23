@@ -4,8 +4,9 @@
   "description": "MEN stack website for a fictional company.",
   "main": "meadowlark.mjs",
   "scripts": {
-    "test": "jest"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
+  "type": "module",
   "author": "Nate",
   "license": "UNLICENSED",
   "dependencies": {
@@ -14,5 +15,8 @@
   },
   "devDependencies": {
     "jest": "^29.7.0"
+  },
+  "jest": {
+    "transform": {}
   }
 }
