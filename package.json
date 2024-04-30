@@ -16,10 +16,12 @@
   },
   "devDependencies": {
     "jest": "^29.7.0",
+    "jest-puppeteer": "^10.0.1",
     "portfinder": "^1.0.32",
     "puppeteer": "^22.7.1"
   },
   "jest": {
-    "transform": {}
+    "transform": {},
+    "preset": "jest-puppeteer"
   }
 }
