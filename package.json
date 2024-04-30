@@ -16,6 +16,7 @@
   },
   "devDependencies": {
     "jest": "^29.7.0",
+    "portfinder": "^1.0.32",
     "puppeteer": "^22.7.1"
   },
   "jest": {
