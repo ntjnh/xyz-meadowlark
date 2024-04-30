@@ -1,5 +1,6 @@
 import express from 'express'
 import { engine } from 'express-handlebars'
+import process from 'process'
 
 import * as handlers from './lib/handlers.mjs'
 
@@ -27,7 +28,12 @@ app.use(handlers.notFound)
 // Custom 500 page
 app.use(handlers.serverError)
 
-app.listen(port, () => {
-    console.log(`Express started on http://localhost:${port}; ` + 
-    `Press Ctrl-C to terminate.`)
-})
+// Only start server if app is run from command line 
+if (import.meta.url.endsWith(process.argv[1])) {
+    app.listen(port, () => {
+        console.log(`Express started on http://localhost:${port}; ` + 
+        `Press Ctrl-C to terminate.`)
+    })
+}
+
+export default app
