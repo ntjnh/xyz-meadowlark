@@ -4,35 +4,20 @@ version: 2.1
 orbs:
   node: circleci/node@5
 jobs:
-  test-node:
+  test_app:
     # Install node dependencies and run tests
     executor: node/default
-    environment:
-      JEST_JUNIT_OUTPUT_DIR: ./test-results/
     steps:
       - checkout
       - node/install-packages:
           pkg-manager: npm
       - run:
-          command: npm install jest-junit
+          command: npm run lint
+          name: Run linter
       - run:
-          name: Run tests
-          command: npm run test --ci --runInBand --reporters=default --reporters=jest-junit
-      - store_test_results:
-          path: ./test-results/
-  deploy:
-    # This is an example deploy job, not actually used by the workflow
-    docker:
-      - image: cimg/base:stable
-    steps:
-      # Replace this with steps to deploy to users
-      - run:
-          name: deploy
-          command: '#e.g. ./deploy.sh'
+          command: npm run test
+          name: Run Jest tests
 workflows:
-  build-and-test:
+  build_and_test:
     jobs:
-      - test-node
-    # - deploy:
-    #     requires:
-    #       - test-node
+      - test_app
