@@ -6,6 +6,9 @@ import * as handlers from './lib/handlers.mjs'
 
 const app = express()
 
+// Disable X-Powered-by Express header
+app.disable('x-powered-by')
+
 // Configure Handlebars view engine
 app.engine('handlebars', engine({
     defaultLayout: 'main'
