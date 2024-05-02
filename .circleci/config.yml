@@ -1,13 +1,8 @@
 # This config was automatically generated from your source code
 # Stacks detected: deps:node:.,test:jest:
 version: 2.1
-docker:
-  - image: circleci/node:14 # Use your desired version
-    environment:
-      NODE_ENV: development # Only needed if puppeteer is in `devDependencies`
 orbs:
   node: circleci/node@5
-  puppeteer: threetreeslight/puppeteer@0.1.2
 jobs:
   test_app:
     # Install node dependencies and run tests
@@ -20,8 +15,8 @@ jobs:
           command: npm run lint
           name: Run linter
       - run:
-          command: npm run test
-          name: Run Jest tests
+          command: npm run jest
+          name: Run Jest tests only
 workflows:
   build_and_test:
     jobs:

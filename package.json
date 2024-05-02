@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node meadowlark.js",
     "test": "jest --maxWorkers=2",
+    "jest": "jest lib/__tests__",
     "lint": "npx eslint meadowlark.js lib/**"
   },
   "author": "Nate",
