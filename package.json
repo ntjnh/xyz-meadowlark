@@ -4,11 +4,10 @@
   "description": "MEN stack website for a fictional company.",
   "main": "meadowlark.mjs",
   "scripts": {
-    "start": "node meadowlark.mjs",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
-    "lint": "npx eslint meadowlark.mjs lib/**"
+    "start": "node meadowlark.js",
+    "test": "jest",
+    "lint": "npx eslint meadowlark.js lib/**"
   },
-  "type": "module",
   "author": "Nate",
   "license": "UNLICENSED",
   "dependencies": {
@@ -23,9 +22,5 @@
     "jest-puppeteer": "^10.0.1",
     "portfinder": "^1.0.32",
     "puppeteer": "^22.7.1"
-  },
-  "jest": {
-    "transform": {},
-    "preset": "jest-puppeteer"
   }
 }
