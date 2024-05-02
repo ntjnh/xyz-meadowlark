@@ -5,7 +5,7 @@
   "main": "meadowlark.mjs",
   "scripts": {
     "start": "node meadowlark.js",
-    "test": "jest --maxWorkers=2",
+    "test": "jest",
     "jest": "jest lib/__tests__",
     "lint": "npx eslint meadowlark.js lib/**"
   },

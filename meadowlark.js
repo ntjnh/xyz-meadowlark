@@ -9,11 +9,14 @@ const app = express()
 app.disable('x-powered-by')
 
 // Configure Handlebars view engine
-app.engine('handlebars', engine({
-    defaultLayout: 'main'
+app.engine('.hbs', engine({
+    defaultLayout: 'main',
+    extname: '.hbs'
 }))
 
-app.set('view engine', 'handlebars')
+app.set('view engine', '.hbs')
+
+app.set(' view cache', true)
 
 /* eslint-disable no-undef */
 const port = process.env.PORT || 3000
