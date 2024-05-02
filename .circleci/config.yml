@@ -3,6 +3,7 @@
 version: 2.1
 orbs:
   node: circleci/node@5
+  puppeteer: threetreeslight/puppeteer@0.1.2
 jobs:
   test_app:
     # Install node dependencies and run tests
