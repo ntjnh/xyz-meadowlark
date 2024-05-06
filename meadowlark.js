@@ -11,12 +11,19 @@ app.disable('x-powered-by')
 // Configure Handlebars view engine
 app.engine('.hbs', engine({
     defaultLayout: 'main',
-    extname: '.hbs'
+    extname: '.hbs',
+    helpers: {
+        section(name, options) {
+            if(!this._sections) this._sections = {}
+            this._sections[name] = options.fn(this)
+            return
+        }
+    }
 }))
 
 app.set('view engine', '.hbs')
 
-app.set(' view cache', true)
+
 
 /* eslint-disable no-undef */
 const port = process.env.PORT || 3000
@@ -26,6 +33,7 @@ app.use(express.static(__dirname + '/public'))
 
 // Set up routing
 app.get('/', handlers.home)
+app.get('/section-test', handlers.sectionTest)
 
 app.get('/about', handlers.about)
 
