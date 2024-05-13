@@ -2,6 +2,7 @@ const express = require('express')
 const { engine } = require('express-handlebars')
 const bodyParser = require('body-parser')
 
+const { section } = require('./lib/helpers.js')
 const handlers = require('./lib/handlers.js')
 const app = express()
 
@@ -13,17 +14,13 @@ app.engine('.hbs', engine({
     defaultLayout: 'main',
     extname: '.hbs',
     helpers: {
-        section(name, options) {
-            if(!this._sections) this._sections = {}
-            this._sections[name] = options.fn(this)
-            return
-        }
+        section
     }
 }))
-
 app.set('view engine', '.hbs')
 
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
 
 /* eslint-disable no-undef */
 const port = process.env.PORT || 3000
@@ -33,14 +30,17 @@ app.use(express.static(__dirname + '/public'))
 
 // Set up routing
 app.get('/', handlers.home)
-app.get('/section-test', handlers.sectionTest)
 
 app.get('/about', handlers.about)
 
-// Newsletter form
+// Newsletter form - browser
 app.get('/newsletter-signup', handlers.newsletterSignup)
 app.post('/newsletter-signup/process', handlers.newsletterSignupProcess)
 app.get('/newsletter-signup/thank-you', handlers.newsletterSignupThankYou)
+
+// Newsletter form - fetch
+app.get('/newsletter', handlers.newsletter)
+app.get('/api/newsletter-signup', handlers.api.newsletterSignup)
 
 // Custom 404 page
 app.use(handlers.notFound)
