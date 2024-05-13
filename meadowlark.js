@@ -1,8 +1,8 @@
 const express = require('express')
 const { engine } = require('express-handlebars')
+const bodyParser = require('body-parser')
 
 const handlers = require('./lib/handlers.js')
-
 const app = express()
 
 // Disable X-Powered-by Express header
@@ -23,7 +23,7 @@ app.engine('.hbs', engine({
 
 app.set('view engine', '.hbs')
 
-
+app.use(bodyParser.urlencoded({ extended: true }))
 
 /* eslint-disable no-undef */
 const port = process.env.PORT || 3000
@@ -36,6 +36,11 @@ app.get('/', handlers.home)
 app.get('/section-test', handlers.sectionTest)
 
 app.get('/about', handlers.about)
+
+// Newsletter form
+app.get('/newsletter-signup', handlers.newsletterSignup)
+app.post('/newsletter-signup/process', handlers.newsletterSignupProcess)
+app.get('/newsletter-signup/thank-you', handlers.newsletterSignupThankYou)
 
 // Custom 404 page
 app.use(handlers.notFound)
