@@ -1,6 +1,7 @@
 const express = require('express')
 const { engine } = require('express-handlebars')
 const bodyParser = require('body-parser')
+const multiparty = require('multiparty')
 
 const { section } = require('./lib/helpers.js')
 const handlers = require('./lib/handlers.js')
@@ -41,6 +42,27 @@ app.get('/newsletter-signup/thank-you', handlers.newsletterSignupThankYou)
 // Newsletter form - fetch
 app.get('/newsletter', handlers.newsletter)
 app.get('/api/newsletter-signup', handlers.api.newsletterSignup)
+
+// Photo upload form
+app.get('/contest/vacation-photo', handlers.vacationPhotoContest)
+app.get('/contest/vacation-photo-ajax', handlers.vacationPhotoContestAjax)
+app.post('/contest/vacation-photo/:year/:month', (req, res) => {
+    const form = new multiparty.Form()
+    form.parse(req, (err, fields, files) => {
+        if(err) return handlers.vacationPhotoContestProcessError(req, res, err.message)
+        console.log('got fields: ', fields)
+        console.log('and files: ', files)
+        handlers.vacationPhotoContestProcess(req, res, fields, files)
+    })
+})
+app.get('/contest/vacation-photo-thank-you', handlers.vacationPhotoContestProcessThankYou)
+app.post('/api/vacation-photo-contest/:year/:month', (req, res) => {
+    const form = new multiparty.Form()
+    form.parse(req, (err, fields, files) => {
+        if(err) return handlers.api.vacationPhotoContestError(req, res, err.message)
+        handlers.api.vacationPhotoContest(req, res, fields, files)
+    })
+})
 
 // Custom 404 page
 app.use(handlers.notFound)
